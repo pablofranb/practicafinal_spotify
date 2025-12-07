@@ -44,6 +44,7 @@ const ArtistWidget = ({token, artistasfav,Setartistasfav})=>{
          }, 400);
         return () => clearTimeout(t);
     }, [busqueda]);
+    
     //con esto guardo las series
     const Buscarserie=async ()=>{
         //fetch

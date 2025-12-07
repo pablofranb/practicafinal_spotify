@@ -2,12 +2,15 @@
 
 import Header from "@/components/Header";
 import ArtistWidget from "@/components/widgets/ArtistWidget";
+import TrackWidget from "@/components/widgets/TrackWidget";
+import GenreWidget from "@/components/widgets/GenreWidget";
 import { useState, useEffect } from 'react';
 import { getAccessToken } from "@/lib/auth";
 
 export default function DashboardPage() {
   const [accessToken, setAccessToken] = useState(null);//donde guardare el token
   const[artistasfav,Setartistasfav]=useState([])//inicio vacio
+  const[cancionesfav,Setcancionesfav]=useState([])//inicio vacio
   useEffect(() => {
   async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('spotify_refresh_token');
@@ -49,6 +52,8 @@ export default function DashboardPage() {
     <div>
       <Header />
       <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
+      <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav} />
+      <GenreWidget token={accessToken} />
     </div>
   );
 }

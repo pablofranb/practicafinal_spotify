@@ -1,0 +1,102 @@
+/* Contenedor principal del widget */
+.listageneros {
+  background-color: black;
+  padding: 20px;
+  border-radius: 12px;
+  color: #1DB954;
+}
+
+/* Botón de mostrar/ocultar */
+.botongeneros {
+  background-color: #1DB954;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.botongeneros:hover {
+  background-color: white;
+  color: #1DB954;
+}
+
+.namescontainer {
+  display: flex;
+  flex-wrap: wrap;         /* Permite varias líneas */
+  gap: 10px;
+  margin-bottom: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Cada género como píldora estilo Spotify */
+.names {
+  
+  background-color: #111;
+  padding: 8px 12px;
+  color: #1DB954;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+}
+
+/* botón de favorito  para cada género */
+.names button {
+  background: transparent;
+  cursor: pointer;
+  color: #1DB954;
+  font-size: 18px;
+}
+/*  Buscador*/
+
+
+.forma {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 20px;
+  color: #1DB954;
+  font-weight: bold;
+}
+
+.forma input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid gray;
+  background-color: black;
+  color: #1DB954;
+  width: 250px;
+  font-size: 14px;
+}
+
+/*
+   Resultados del buscador en horizontal-*/
+
+.resultados {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.item {
+  background-color: #111;
+  padding: 12px;
+  border-radius: 10px;
+  min-width: 150px;
+  text-align: center;
+  color: #1DB954;
+}
+
+.item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+}

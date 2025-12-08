@@ -1,5 +1,7 @@
 'use client'
 import { useState,useEffect } from "react"
+import styles from "./GenreWidget.module.css";
+
 const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
     //const [todosgeneros,Settodosgeneros]=useState([]) cuando lo hice sin hardcodear
     const TODOS_LOS_GENEROS = [
@@ -93,14 +95,14 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
 
     return(
         
-        <div id="listageneros">
-        <button className="botongeneros" onClick={() => setMostrar(!mostrar)}>
+        <div className={styles.listageneros}>
+        <button className={styles.botongeneros} onClick={() => setMostrar(!mostrar)}>
             {mostrar ? "Ocultar géneros" : "Mostrar géneros"}
         </button> 
         {mostrar && (
-            <div>
+            <div className={styles.namescontainer}>
                 {TODOS_LOS_GENEROS.map((genero) => (
-                    <li className="names" key={genero}>
+                    <li className={styles.names} key={genero}>
                         {genero}
                         <button onClick={() => favoritosGenero(genero)}>
                             {esGeneroFav(genero) ? "❤️" : "🤍"}
@@ -108,17 +110,18 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
                     </li>
                 ))}
             </div>
-        )}
+)}
 
-        <form className="forma" onSubmit={BuscarPorGenero}>
-            <h1 className="forma">Buscador de canciones por genero</h1>
-            <label className="forma">Buscador</label>
+
+        <form className={styles.forma} onSubmit={BuscarPorGenero}>
+            <h1 className={styles.forma}>Buscador de canciones por genero</h1>
+            <label className={styles.forma}>Buscador</label>
             <input type="text" onChange={GuardarBusqueda} value={busqueda} placeholder="Búsqueda de artistas filtrados por genero"></input> 
             
         </form>
-         <div className="resultados">
+         <div className={styles.resultados}>
                 {artistas.map((artista) => (
-                    <div key={artista.id} className="item">
+                    <div key={artista.id} className={styles.item}>
                         <p>{artista.name}</p>
                         <img 
                             src={artista.images[0]?.url} 

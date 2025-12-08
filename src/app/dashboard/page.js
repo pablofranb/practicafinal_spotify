@@ -14,6 +14,7 @@ export default function DashboardPage() {
   const[cancionesfav,Setcancionesfav]=useState([])//inicio vacio
   const[generosfav,Setgenerosfav]=useState([])//inicio vacio
   const[playlist,SetPlaylist]=useState([])
+  const [favoritosplaylist,Setfavoritosplaylist]=useState([])
   useEffect(() => {
   async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('spotify_refresh_token');
@@ -145,7 +146,7 @@ export default function DashboardPage() {
         Generar Playlist
       </button>
 
-      <PlaylistDisplay playlist={playlist} />
+      <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist}/>
     </div>
   );
 }

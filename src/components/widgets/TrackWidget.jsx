@@ -1,5 +1,6 @@
 'use client'
 import {useState, useEffect} from 'react'
+import styles from "./TrackWidget.module.css";
 
 const TrackWidget = ({token,cancionesfav,Setcancionesfav}) =>{
     const [Busqueda,SetBusqueda]=useState("")
@@ -66,13 +67,14 @@ const TrackWidget = ({token,cancionesfav,Setcancionesfav}) =>{
 
     return(
     <div id="cancionesbuscador">
-        <form className="forma" onSubmit={BuscarCancion}>
-            <h1 className="forma">Buscador de canciones</h1>
-            <label className="forma">Buscador</label>
+        <form className={styles.forma} onSubmit={BuscarCancion}>
+            <h1 className={styles.forma}>Buscador de canciones</h1>
+            <label className={styles.forma}>Buscador</label>
             <input type="text" onChange={guardarBusqueda} value={Busqueda} placeholder="Búsqueda de CANCIONES"></input> 
             
         </form>
-        <div>{aux}</div>
+        <div className={styles.resultados}>{aux}</div>
+
     </div>
 
 

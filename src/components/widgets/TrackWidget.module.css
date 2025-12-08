@@ -1,0 +1,85 @@
+/* 
+   Contenedor principal del widget de canciones
+   Fondo negro, padding y bordes redondeados
+*/
+.cancionesbuscador {
+  background-color: black;
+  padding: 20px;
+  border-radius: 12px;
+  color: #1DB954;
+}
+
+/* 
+   Bloque del formulario de búsqueda
+   Incluye título, label e input
+*/
+.forma {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #1DB954;
+  margin-bottom: 10px;
+}
+
+/* 
+   Input estilo Spotify verde
+*/
+.forma input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid gray;
+  background-color: black;
+  color: #1DB954;
+  width: 250px;
+  font-size: 14px;
+}
+
+/* 
+   Contenedor de resultados horizontal estilo Spotify
+*/
+.resultados {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+/* 
+   Texto de cada resultado (canción y artista)
+*/
+.resultados p {
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1DB954;
+  text-align: center;
+}
+
+/* 
+   Imagen del álbum de la canción
+*/
+.resultados img {
+  border-radius: 10px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* 
+   Botón de favorito
+*/
+.fav {
+  margin-top: 6px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #1DB954;
+}
+
+.fav:hover {
+  color: white;
+}

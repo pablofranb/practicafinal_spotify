@@ -1,0 +1,86 @@
+/* Contenedor principal del widget de artistas
+   Fondo negro, padding y bordes redondeados*/
+.Buscador {
+  background-color: black;
+  padding: 20px;
+  border-radius: 12px;
+  color: #1DB954;
+}
+
+/*
+   Estilo general del bloque de formulario
+   (Título  label input)*/
+.Forma {
+  margin-bottom: 10px;
+  color: #1DB954;
+}
+
+/* Contenedor horizontal que ocupa toda la pantalla */
+.resultados {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;   /* reparte los 5 elementos */
+  width: 100%;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+
+/*
+   Contenedor del formulario del buscador
+   Organiza verticalmente el label input*/
+.Forma {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;              /* separación entre elementos */
+  color: #1DB954;
+  margin-bottom: 10px;
+}
+
+/*
+   Input del buscador
+   Bordes redondeados, estilo oscuro tipo Spotify
+*/
+.Forma input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid gray;
+  background-color: black;
+  color: #1DB954;
+  width: 250px;
+  font-size: 14px;
+}
+
+/* 
+   Estilo del nombre del artista
+   Texto grande, centrado y en blanco
+*/
+.resultados p {
+  margin: 5px 0 5px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1DB954;
+  text-align: center;
+}
+
+/* 
+   Imagen del artista
+   Tamaño uniforme y bordes redondeados*/
+.resultados img {
+  border-radius: 10px;
+  width: 120px;
+  height: 120px;
+}
+
+/*
+   Botón de favoritos (corazón)
+   Botón transparente sin borde, estilo simple*/
+#fav {
+  margin-top: 6px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+

@@ -1,6 +1,8 @@
 'use client'
 import {useState,useEffect} from 'react'
 import { getAccessToken,refreshAccessToken } from "@/lib/auth";
+import styles from "./ArtistWidget.module.css";
+
 
 
 const ArtistWidget = ({token, artistasfav,Setartistasfav})=>{
@@ -75,11 +77,12 @@ const ArtistWidget = ({token, artistasfav,Setartistasfav})=>{
     
 
 return (
-    <div className="Buscador">
-      <form id="Forma" onSubmit={Buscarserie}>
-        <h1 className="Forma">BUSCADOR DE ARTISTAS</h1>
+   
+    <div className={styles.Buscador}>
+      <form className={styles.Forma} onSubmit={Buscarserie}>
+        <h1 className={styles.Forma}>BUSCADOR DE ARTISTAS</h1>
 
-        <label className="Forma"> Buscador </label>
+        <label className={styles.Forma}> Buscador </label>
         <input
           type="text"
           onChange={guardarBusqueda}
@@ -87,7 +90,7 @@ return (
           placeholder="Búsqueda de artistas"
         />
       </form>
-      <div className="resultados">
+      <div className={styles.resultados}>
         {aux}
 
         </div>

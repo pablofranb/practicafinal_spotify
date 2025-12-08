@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import ArtistWidget from "@/components/widgets/ArtistWidget";
 import TrackWidget from "@/components/widgets/TrackWidget";
 import GenreWidget from "@/components/widgets/GenreWidget";
+import PlaylistDisplay from "@/components/PlaylistDisplay";
 import { useState, useEffect } from 'react';
 import { getAccessToken } from "@/lib/auth";
 
@@ -53,60 +54,98 @@ export default function DashboardPage() {
 
  //GENERACION DE MI PLAYLIST
 
- const mezclarCanciones = (canciones) => {
-  let copia = [...canciones]; 
+ const mezclarCanciones = (arr) => {
+  let copia = [...arr];
 
   for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1)); // índice aleatorio
-    copia[i] = [copia[j]]   // intercambio
-    copia[j]= copia[i]
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]]; // intercambio correcto
   }
 
   return copia;
 };
 
 
-  const generacionPlaylist=async ()=>{
-    let cancionesaux=[]
-    let cancionesartistaaux=[]
-    let cancionesgenero=[]
-    let listafinalaux=[]
-    cancionesaux.push(...cancionesfav)//primero guardo las canciones favoritas
-    cancionesaux=mezclarCanciones(cancionesaux)//las mezclo para luegocoger las mejroes
-    listafinalaux.push(...cancionesaux.slice(0, 5)); //añado las 5 primeras canciones de la lista mezclada
-    //voy a cger las 5 mejores canciones de cada artista
-    //fetch
-    for(const artista of artistasfav){  
-      const aux = await fetch(
-      `https://api.spotify.com/v1/artists/${artista.id}/top-tracks?market=ES`,
-      { headers: { Authorization: `Bearer ${token}` } }
-      );
-    const datos= await aux.json();
-    cancionesartistaaux.push(...datos.tracks) //array
-    cancionesartistaaux=mezclarCanciones(cancionesartistaaux) //mezclo el orden 
-    //desempaquetar los elementos de un array dentro de otro array, antes hacia el set pero aqui añado los array y sin los puntos meto array en array y no los datos de dentro
-    listafinalaux.push(...cancionesartistaaux.slice(0, 5));
+  const generacionPlaylist = async () => {
+    if (!accessToken) {
+      console.error("Token no disponible");
+      return;
     }
-    //añadiremos a la playlist las 5 canciones de cada genero 
-    for(const genero of generosfav){ 
-    const aux = await fetch(
-            `https://api.spotify.com/v1/search?type=track&q=genre:${genero}&limit=50`,
+    let listaFinal = [];
+    // 1. CANCIONES FAVORITAS
+        if (cancionesfav.length > 0) {
+          const mezcladas = mezclarCanciones(cancionesfav); //mezclo las canciones
+          listaFinal.push(...mezcladas.slice(0, 5)); //añado a la lista 5 atleatorias
+        }
+      // 2. TOP TRACKS ARTISTAS
+    for (const artista of artistasfav) { //for para cada artista fav
+        try {
+          //fetch
+          const resp = await fetch(
+            `https://api.spotify.com/v1/artists/${artista.id}/top-tracks?market=ES`,
             { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
-    const datos = await aux.json()
-    cancionesgenero.push(...datos.tracks.items) //objeto
-    cancionesgenero=mezclarCanciones(cancionesgenero)
-    listafinalaux.push(...cancionesgenero.slice(0, 5));
-    }
-    SetPlaylist(listafinalaux)
+          );
+        //transformo
+        const datos = await resp.json();
+        //sino hay datos salto
+        if (!datos || !datos.tracks) {
+          continue;
+        }
+        //mezclo
+        const mezcladas = mezclarCanciones(datos.tracks);
+        //añado
+        listaFinal.push(...mezcladas.slice(0, 5));
 
+      } catch (err) {
+        console.error("Error:", artista.name, err);
+        }
+    }
+
+  
+  // 3. CANCIONES POR GÉNERO
+  
+  for (const genero of generosfav) {
+    try {
+        // Buscar canciones con el género en el nombre 
+        const resp = await fetch(
+          `https://api.spotify.com/v1/search?type=track&q=${genero}&limit=50`,
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+
+        const datos = await resp.json();
+        //compruebo que datos existe, que tiene tracks y que en traks hay items
+        if (!datos || !datos.tracks || !datos.tracks.items) {
+          continue;
+        }
+        const mezcladas = mezclarCanciones(datos.tracks.items);
+        listaFinal.push(...mezcladas.slice(0, 5));
+
+    } catch (err) {
+      console.error("Error:", genero, err);
+    }
   }
+  // 4. LIMPIEZA FINAL
+  listaFinal = listaFinal.filter(t => t.id!=null);
+  // ELIMINAR DUPLICADOS POR ID
+  listaFinal = listaFinal.filter(
+    (track, index, self) =>
+      index === self.findIndex(t => t.id === track.id)
+  );
+  SetPlaylist(listaFinal);
+};
+
+
   return (
     <div>
       <Header />
       <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
       <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav} />
       <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
+      <button onClick={generacionPlaylist} className="botonGenerar">
+        Generar Playlist
+      </button>
+
+      <PlaylistDisplay playlist={playlist} />
     </div>
   );
 }

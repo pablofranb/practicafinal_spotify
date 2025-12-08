@@ -1,6 +1,6 @@
 'use client'
 import { useState,useEffect } from "react"
-const GenreWidget=({ token })=>{
+const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
     //const [todosgeneros,Settodosgeneros]=useState([]) cuando lo hice sin hardcodear
     const TODOS_LOS_GENEROS = [
   'acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'anime',
@@ -43,6 +43,13 @@ const GenreWidget=({ token })=>{
     listargeneros();
     },[token]);
     */
+
+    //añadir al localstorage
+    useEffect( () => {
+        localStorage.setItem("favoritos", JSON.stringify(generosfav));
+        console.log({generosfav})
+    }, [generosfav]);   //cada vez que modifico favoritas lo añado al local storage
+
     const BuscarPorGenero = async (e) => {
         e.preventDefault();
 
@@ -66,20 +73,42 @@ const GenreWidget=({ token })=>{
         })
     }
         */
-    
+    const esGeneroFav = (genero) => {
+        return generosfav.includes(genero); //includes porque es string
+    };
+
+    const favoritosGenero = (genero) => {
+        let aux = [...generosfav];
+
+        if (esGeneroFav(genero)) {
+            // quitar
+            aux = aux.filter(g => g !== genero);
+        } else {
+            // añadir
+            aux.push(genero);
+        }
+
+        Setgenerosfav(aux);
+    };
+
     return(
         
         <div id="listageneros">
         <button className="botongeneros" onClick={() => setMostrar(!mostrar)}>
             {mostrar ? "Ocultar géneros" : "Mostrar géneros"}
         </button> 
-         {mostrar && (
-                <div>
-                    {TODOS_LOS_GENEROS.map((item) => (
-                        <li className="names">{item}</li>
-                    ))}
-                </div>
-         )}
+        {mostrar && (
+            <div>
+                {TODOS_LOS_GENEROS.map((genero) => (
+                    <li className="names" key={genero}>
+                        {genero}
+                        <button onClick={() => favoritosGenero(genero)}>
+                            {esGeneroFav(genero) ? "❤️" : "🤍"}
+                        </button>
+                    </li>
+                ))}
+            </div>
+        )}
 
         <form className="forma" onSubmit={BuscarPorGenero}>
             <h1 className="forma">Buscador de canciones por genero</h1>

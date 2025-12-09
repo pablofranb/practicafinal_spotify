@@ -114,7 +114,7 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
 
 
         <form className={styles.forma} onSubmit={BuscarPorGenero}>
-            <h1 className={styles.forma}>Buscador de canciones por genero</h1>
+            <h1 className={styles.forma}>Buscador de artistas por genero</h1>
             <label className={styles.forma}>Buscador</label>
             <input type="text" onChange={GuardarBusqueda} value={busqueda} placeholder="Búsqueda de artistas filtrados por genero"></input> 
             

@@ -7,6 +7,7 @@ import GenreWidget from "@/components/widgets/GenreWidget";
 import DecadeWidget from "@/components/widgets/DecadeWidget";
 import PlaylistDisplay from "@/components/PlaylistDisplay";
 import PopularityWidget from "@/components/widgets/PopularityWidget";
+import HistorialWidget from "@/components/widgets/HistorialWidget";
 import { useState, useEffect } from 'react';
 import { getAccessToken } from "@/lib/auth";
 import { generatePlaylist, mezclarCanciones } from "@/lib/spotify";
@@ -132,6 +133,7 @@ const añadirCancionAPlaylist = (track) => {
           <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav}  añadirCancionAPlaylist={añadirCancionAPlaylist}/>
         )
       }
+      <HistorialWidget SetPlaylist={SetPlaylist} />
 
     </div>
   );

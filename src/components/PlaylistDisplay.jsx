@@ -7,9 +7,23 @@ const PlaylistDisplay = ({ playlist,favoritosplaylist,Setfavoritosplaylist,SetPl
   const [mostrar, setMostrar] = useState(false);
   //añadir al localstorage
       useEffect( () => {
-          localStorage.setItem("favoritos", JSON.stringify(favoritosplaylist));
+          localStorage.setItem("favoritos palylist", JSON.stringify(favoritosplaylist));
           console.log({favoritosplaylist})
       }, [favoritosplaylist]);   //cada vez que modifico favoritas lo añado al local storage
+     // Guarda cada playlist generada
+        useEffect(() => {
+        if (playlist.length === 0) return;
+
+        let prev = JSON.parse(localStorage.getItem("historial") || "[]");
+        //añado al principio del array guardando fecha y lista de canciones
+        prev.unshift({
+            fecha: new Date().toLocaleString(),
+            lista: playlist
+        });
+        //Guardo el historial actualizado
+        localStorage.setItem("historial", JSON.stringify(prev));
+        }, [playlist]);
+
   
     const esFavorito=(cancion)=>{
         return favoritosplaylist.some(f => f.id === cancion.id);

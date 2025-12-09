@@ -1,0 +1,66 @@
+.historialBox {
+  background: #000;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #1DB95455;
+  margin-top: 25px;
+  color: #1DB954;
+}
+
+.toggleButton {
+  background: #1DB954;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.toggleButton:hover {
+  background: #1ed760;
+  transform: scale(1.05);
+}
+
+.historialLista {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty {
+  color: #aaa;
+  font-style: italic;
+}
+
+.historialItem {
+  background: #111;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #1DB95433;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fecha {
+  color: white;
+  font-size: 14px;
+}
+
+.loadButton {
+  background: transparent;
+  border: 1px solid #1DB954;
+  color: #1DB954;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.loadButton:hover {
+  background: #1DB954;
+  color: black;
+}

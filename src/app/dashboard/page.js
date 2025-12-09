@@ -4,9 +4,12 @@ import Header from "@/components/Header";
 import ArtistWidget from "@/components/widgets/ArtistWidget";
 import TrackWidget from "@/components/widgets/TrackWidget";
 import GenreWidget from "@/components/widgets/GenreWidget";
+import DecadeWidget from "@/components/widgets/DecadeWidget";
 import PlaylistDisplay from "@/components/PlaylistDisplay";
+import PopularityWidget from "@/components/widgets/PopularityWidget";
 import { useState, useEffect } from 'react';
 import { getAccessToken } from "@/lib/auth";
+import { generatePlaylist, mezclarCanciones } from "@/lib/spotify";
 
 export default function DashboardPage() {
   const [accessToken, setAccessToken] = useState(null);//donde guardare el token
@@ -15,10 +18,19 @@ export default function DashboardPage() {
   const[generosfav,Setgenerosfav]=useState([])//inicio vacio
   const[playlist,SetPlaylist]=useState([])
   const [favoritosplaylist,Setfavoritosplaylist]=useState([])
-  
+  const[decadasfav,Setdecadasfav]=useState([])//inicio vacio
+  const [popularityRange, setPopularityRange] = useState([0, 100]);
   //parte de añadir
   const [mostrarTrackWidget, setMostrarTrackWidget] = useState(false); //con este controlo si muestro el widget de buscar cancion
   
+  //parte de generar
+  const preferences = {
+  artists: artistasfav,
+  genres: generosfav,
+  decades: [],         // si no usas décadas, se deja vacío
+  popularity: null     // si no usas popularidad, va null
+};
+
   
   useEffect(() => {
   async function refreshAccessToken() {
@@ -73,72 +85,27 @@ export default function DashboardPage() {
 
 
   const generacionPlaylist = async () => {
-    if (!accessToken) {
-      console.error("Token no disponible");
-      return;
-    }
-    let listaFinal = [];
-    // 1. CANCIONES FAVORITAS
-        if (cancionesfav.length > 0) {
-          const mezcladas = mezclarCanciones(cancionesfav); //mezclo las canciones
-          listaFinal.push(...mezcladas.slice(0, 5)); //añado a la lista 5 atleatorias
-        }
-      // 2. TOP TRACKS ARTISTAS
-    for (const artista of artistasfav) { //for para cada artista fav
-        try {
-          //fetch
-          const resp = await fetch(
-            `https://api.spotify.com/v1/artists/${artista.id}/top-tracks?market=ES`,
-            { headers: { Authorization: `Bearer ${accessToken}` } }
-          );
-        //transformo
-        const datos = await resp.json();
-        //sino hay datos salto
-        if (!datos || !datos.tracks) {
-          continue;
-        }
-        //mezclo
-        mezcladas = mezclarCanciones(datos.tracks);
-        //añado
-        listaFinal.push(...mezcladas.slice(0, 5));
+  try {
+    const preferences = {
+      artists: artistasfav,
+      genres: generosfav,
+      decades: decadasfav,
+      popularity: popularityRange,
+    };
 
-      } catch (err) {
-        console.error("Error:", artista.name, err);
-        }
-    }
+    // Llamamos a la función de lib/spotify.js
+    let lista = await generatePlaylist(preferences);
 
-  
-  // 3. CANCIONES POR GÉNERO
-  
-  for (const genero of generosfav) {
-    try {
-        // Buscar canciones con el género en el nombre 
-        const resp = await fetch(
-          `https://api.spotify.com/v1/search?type=track&q=${genero}&limit=50`,
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
+    // Mezclo
+    lista = mezclarCanciones(lista).slice(0, 30);
 
-        const datos = await resp.json();
-        //compruebo que datos existe, que tiene tracks y que en traks hay items
-        if (!datos || !datos.tracks || !datos.tracks.items) {
-          continue;
-        }
-        const mezcladas = mezclarCanciones(datos.tracks.items);
-        listaFinal.push(...mezcladas.slice(0, 5));
+    SetPlaylist(lista);
 
-    } catch (err) {
-      console.error("Error:", genero, err);
-    }
+  } catch (err) {
+    console.error("Error generando playlist:", err);
   }
-  // 4. LIMPIEZA FINAL
-  listaFinal = listaFinal.filter(t => t.id!=null);
-  // ELIMINAR DUPLICADOS POR ID
-  listaFinal = listaFinal.filter(
-    (track, index, self) =>
-      index === self.findIndex(t => t.id === track.id)
-  );
-  SetPlaylist(listaFinal);
 };
+
 
  //<button className={styles.agregarcan} onClick={() => agregarcancion(track)}>AÑADIR CANCION</button>
  //funcion para abrir el widget con mostrarTrackWidget
@@ -159,13 +126,19 @@ const añadirCancionAPlaylist = (track) => {
   return (
     <div>
       <Header />
+      <div className="artistGenreRow">
       <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
-      
       <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
+       
+      <DecadeWidget token={accessToken} decadasfav={decadasfav} Setdecadasfav={Setdecadasfav} />
+     
+      
+      </div>
+      <div className="generateWrapper">
       <button onClick={generacionPlaylist} className="botonGenerar">
         Generar Playlist
       </button>
-      
+      </div>
       <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist} SetPlaylist={SetPlaylist} abrirTrackWidget={abrirTrackWidget} />
       {mostrarTrackWidget && (
           <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav}  añadirCancionAPlaylist={añadirCancionAPlaylist}/>

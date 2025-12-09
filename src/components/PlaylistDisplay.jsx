@@ -44,7 +44,7 @@ const PlaylistDisplay = ({ playlist,favoritosplaylist,Setfavoritosplaylist,SetPl
                 {playlist.length === 0 ? (
                     <p>No hay canciones aún.</p>
                 ) : (playlist.map(track => (
-                        <div className={styles.trackItem}>
+                        <div key={track.id} className={styles.trackItem}>
                         <img src={track.album?.images?.[0]?.url || "/no-image.png"}width="90"/>
                         <button className={styles.favButton} onClick={() => favoritos(track)}> { esFavorito(track) ? "❤️" : "🤍"}</button>
                         

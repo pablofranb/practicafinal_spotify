@@ -1,86 +1,75 @@
-/* Contenedor principal del widget de artistas
-   Fondo negro, padding y bordes redondeados*/
+/* ============================================================
+   🧑‍🎤 WIDGET DE ARTISTAS
+   ============================================================ */
+
+/* Contenedor principal */
 .Buscador {
-  background-color: black;
+  background-color: #000;
   padding: 20px;
   border-radius: 12px;
   color: #1DB954;
+  width: fit-content;
+  margin: 20px auto;
+  border: 1px solid #1DB95440;
 }
 
-/*
-   Estilo general del bloque de formulario
-   (Título  label input)*/
-.Forma {
-  margin-bottom: 10px;
-  color: #1DB954;
-}
-
-/* Contenedor horizontal que ocupa toda la pantalla */
-.resultados {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;   /* reparte los 5 elementos */
-  width: 100%;
-  gap: 20px;
-  padding: 10px 0;
-}
-
-
-/*
-   Contenedor del formulario del buscador
-   Organiza verticalmente el label input*/
+/* Contenedor del formulario */
 .Forma {
   display: flex;
   flex-direction: column;
-  gap: 6px;              /* separación entre elementos */
-  color: #1DB954;
+  gap: 6px;
   margin-bottom: 10px;
+  color: #1DB954;
 }
 
-/*
-   Input del buscador
-   Bordes redondeados, estilo oscuro tipo Spotify
-*/
+/* Input del buscador */
 .Forma input {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid gray;
-  background-color: black;
+  border: 1px solid #1DB95460;
+  background-color: #000;
   color: #1DB954;
   width: 250px;
   font-size: 14px;
 }
 
-/* 
-   Estilo del nombre del artista
-   Texto grande, centrado y en blanco
-*/
+/* Resultados en horizontal */
+.resultados {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  overflow-x: auto;
+}
+
+/* Nombre del artista */
 .resultados p {
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
   font-size: 16px;
   font-weight: bold;
   color: #1DB954;
   text-align: center;
 }
 
-/* 
-   Imagen del artista
-   Tamaño uniforme y bordes redondeados*/
+/* Foto del artista */
 .resultados img {
-  border-radius: 10px;
   width: 120px;
   height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #1DB95440;
 }
 
-/*
-   Botón de favoritos (corazón)
-   Botón transparente sin borde, estilo simple*/
+/* Botón favorito */
 #fav {
   margin-top: 6px;
   background: transparent;
   border: none;
   font-size: 22px;
   cursor: pointer;
+  color: #1DB954;
 }
 
+#fav:hover {
+  color: white;
+}

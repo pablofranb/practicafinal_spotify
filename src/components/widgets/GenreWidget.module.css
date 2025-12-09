@@ -1,12 +1,19 @@
-/* Contenedor principal del widget */
+/* ============================================================
+   🎵 WIDGET DE GÉNEROS
+   ============================================================ */
+
+/* Contenedor principal */
 .listageneros {
-  background-color: black;
+  background-color: #000;
   padding: 20px;
   border-radius: 12px;
   color: #1DB954;
+  width: fit-content;
+  margin: 20px auto;
+  border: 1px solid #1DB95440; /* borde suave */
 }
 
-/* Botón de mostrar/ocultar */
+/* Botón mostrar/ocultar */
 .botongeneros {
   background-color: #1DB954;
   border: none;
@@ -16,43 +23,55 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 15px;
+  transition: 0.2s ease-in-out;
 }
 
 .botongeneros:hover {
-  background-color: white;
-  color: #1DB954;
+  background-color: #18a84b;
+  color: black;
 }
 
+/* Contenedor de todos los géneros */
 .namescontainer {
   display: flex;
-  flex-wrap: wrap;         /* Permite varias líneas */
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 20px;
   max-height: 250px;
   overflow-y: auto;
+  padding-right: 5px;
 }
 
-/* Cada género como píldora estilo Spotify */
+/* Cada género como pastilla estilo Spotify */
 .names {
-  
   background-color: #111;
   padding: 8px 12px;
   color: #1DB954;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: fit-content;
+  gap: 8px;
+  border-radius: 20px;
+  border: 1px solid #1DB95440;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
-/* botón de favorito  para cada género */
+.names:hover {
+  background-color: #1DB95420;
+}
+
+/* Botón de favorito */
 .names button {
   background: transparent;
   cursor: pointer;
   color: #1DB954;
   font-size: 18px;
+  border: none;
 }
-/*  Buscador*/
 
+/* ---------------------
+   Buscador por género
+---------------------- */
 
 .forma {
   display: flex;
@@ -66,20 +85,16 @@
 .forma input {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid gray;
-  background-color: black;
+  border: 1px solid #1DB95460;
+  background-color: #000;
   color: #1DB954;
-  width: 250px;
+  width: 260px;
   font-size: 14px;
 }
-
-/*
-   Resultados del buscador en horizontal-*/
 
 .resultados {
   margin-top: 20px;
   display: flex;
-  flex-direction: row;
   gap: 20px;
   overflow-x: auto;
   padding-bottom: 10px;
@@ -92,6 +107,7 @@
   min-width: 150px;
   text-align: center;
   color: #1DB954;
+  border: 1px solid #1DB95440;
 }
 
 .item img {
@@ -100,3 +116,4 @@
   border-radius: 10px;
   object-fit: cover;
 }
+

@@ -2,7 +2,7 @@
 import {useState, useEffect} from 'react'
 import styles from "./TrackWidget.module.css";
 
-const TrackWidget = ({token,cancionesfav,Setcancionesfav}) =>{
+const TrackWidget = ({token,cancionesfav,Setcancionesfav,añadirCancionAPlaylist}) =>{
     const [Busqueda,SetBusqueda]=useState("")
     const [canciones,SetCanciones]=useState([])
     let aux
@@ -60,13 +60,14 @@ const TrackWidget = ({token,cancionesfav,Setcancionesfav}) =>{
         <p>{cancion.artists[0]?.name}</p>
         <img src={cancion.album.images[0]?.url} width="80" />
         <button onClick={() => favoritos(cancion)}> {eslacancionfavorita(cancion) ? "❤️" : "🤍"} </button>
+        <button onClick={() => añadirCancionAPlaylist(cancion)}>Añadir a playlist</button>
         </div>
     ));
     }
 
 
     return(
-    <div id="cancionesbuscador">
+    <div className={styles.cancionesbuscador}>
         <form className={styles.forma} onSubmit={BuscarCancion}>
             <h1 className={styles.forma}>Buscador de canciones</h1>
             <label className={styles.forma}>Buscador</label>

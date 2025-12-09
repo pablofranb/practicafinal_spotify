@@ -15,6 +15,11 @@ export default function DashboardPage() {
   const[generosfav,Setgenerosfav]=useState([])//inicio vacio
   const[playlist,SetPlaylist]=useState([])
   const [favoritosplaylist,Setfavoritosplaylist]=useState([])
+  
+  //parte de añadir
+  const [mostrarTrackWidget, setMostrarTrackWidget] = useState(false); //con este controlo si muestro el widget de buscar cancion
+  
+  
   useEffect(() => {
   async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('spotify_refresh_token');
@@ -93,7 +98,7 @@ export default function DashboardPage() {
           continue;
         }
         //mezclo
-        const mezcladas = mezclarCanciones(datos.tracks);
+        mezcladas = mezclarCanciones(datos.tracks);
         //añado
         listaFinal.push(...mezcladas.slice(0, 5));
 
@@ -136,19 +141,37 @@ export default function DashboardPage() {
 };
 
  //<button className={styles.agregarcan} onClick={() => agregarcancion(track)}>AÑADIR CANCION</button>
+ //funcion para abrir el widget con mostrarTrackWidget
+const abrirTrackWidget = () => {
+  if(mostrarTrackWidget===false){ 
+  setMostrarTrackWidget(true);
+  }
+  else{
+    setMostrarTrackWidget(false)
+  }
+};
+
+const añadirCancionAPlaylist = (track) => {
+  SetPlaylist(prev => [...prev, track]);
+  setMostrarTrackWidget(false);
+};
 
   return (
     <div>
       <Header />
       <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
-      <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav} />
+      
       <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
       <button onClick={generacionPlaylist} className="botonGenerar">
         Generar Playlist
       </button>
       
-      <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist} SetPlaylist={SetPlaylist}/>
-      
+      <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist} SetPlaylist={SetPlaylist} abrirTrackWidget={abrirTrackWidget} />
+      {mostrarTrackWidget && (
+          <TrackWidget token={accessToken} cancionesfav={cancionesfav} Setcancionesfav={Setcancionesfav}  añadirCancionAPlaylist={añadirCancionAPlaylist}/>
+        )
+      }
+
     </div>
   );
 }

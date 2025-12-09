@@ -113,3 +113,41 @@
   background-color: #ff4d4d;
   color: white;
 }
+.agregarBoton {
+  float: right;
+  margin-right: 15px;
+  background-color: transparent;
+  border: 1px solid #1DB954;
+  color: #1DB954;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.agregarBoton:hover {
+  background-color: #1DB954;
+  color: black;
+}
+/* Cuadro emergente centrado */
+.cancionesbuscador {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: black;
+  padding: 20px;
+  border-radius: 12px;
+  color: #1DB954;
+
+  width: 450px;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  border: 1px solid #1DB954;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+
+  z-index: 9999;
+}
+
+  

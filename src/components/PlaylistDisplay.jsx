@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./PlaylistDisplay.module.css";
 
 
-const PlaylistDisplay = ({ playlist,favoritosplaylist,Setfavoritosplaylist,SetPlaylist}) => {
+const PlaylistDisplay = ({ playlist,favoritosplaylist,Setfavoritosplaylist,SetPlaylist,abrirTrackWidget}) => {
   const [mostrar, setMostrar] = useState(false);
   //añadir al localstorage
       useEffect( () => {
@@ -38,6 +38,7 @@ const PlaylistDisplay = ({ playlist,favoritosplaylist,Setfavoritosplaylist,SetPl
         <button className={styles.botonPlaylist} onClick={() => setMostrar(!mostrar)}>
         {mostrar ? "Ocultar Playlist" : "Mostrar Playlist"}
         </button>
+        <button  className={styles.agregarBoton} onClick={abrirTrackWidget}>+ Añadir canción</button>
         {mostrar && (
             <div className={styles.listaPlaylist}>
                 {playlist.length === 0 ? (

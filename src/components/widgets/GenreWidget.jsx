@@ -120,7 +120,7 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
             
         </form>
          <div className={styles.resultados}>
-                {artistas.map((artista) => (
+                {busqueda && artistas.map((artista) => (
                     <div key={artista.id} className={styles.item}>
                         <p>{artista.name}</p>
                         <img 

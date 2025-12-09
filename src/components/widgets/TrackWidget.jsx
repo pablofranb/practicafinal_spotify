@@ -73,7 +73,9 @@ const TrackWidget = ({token,cancionesfav,Setcancionesfav}) =>{
             <input type="text" onChange={guardarBusqueda} value={Busqueda} placeholder="Búsqueda de CANCIONES"></input> 
             
         </form>
-        <div className={styles.resultados}>{aux}</div>
+        <div className={styles.resultados}>  
+            {Busqueda.length > 0 && aux}
+        </div>
 
     </div>
 

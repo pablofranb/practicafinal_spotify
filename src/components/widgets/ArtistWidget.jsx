@@ -90,10 +90,10 @@ return (
           placeholder="Búsqueda de artistas"
         />
       </form>
-      <div className={styles.resultados}>
-        {aux}
-
+        <div className={styles.resultados}>  
+            {busqueda.length > 0 && aux}
         </div>
+
     </div>
 )
 }

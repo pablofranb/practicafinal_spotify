@@ -1,52 +1,115 @@
+/* Contenedor principal */
 .playlistDisplay {
-  margin-top: 20px;
-  color: white;
+  background-color: #000;
+  padding: 20px;
+  border-radius: 12px;
+  color: #fff;
+  max-width: 700px;         /*  más estrecho  */
+  margin: 0 auto;           /* centrar */
 }
 
+/* Botón Mostrar/Ocultar */
 .botonPlaylist {
-  background-color: green;
+  background-color: #1DB954;
   border: none;
   padding: 10px 18px;
-  color: white;
-  font-weight: bold;
   border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  margin-bottom: 15px;
+  color: black;
+  margin-bottom: 10px;
 }
 
 .botonPlaylist:hover {
-  background-color: darkgreen;
+  background-color: #1ed760;
 }
 
+/* Lista centrada y compacta */
 .listaPlaylist {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  max-height: 450px;         /* playlist con scroll */
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
+/* Cada track estilo Spotify */
 .trackItem {
   display: flex;
   align-items: center;
   gap: 15px;
-  background-color: black;
-  padding: 12px;
-  border-radius: 10px;
-  border: 2px solid gray;
+  background-color: #111;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #222;
 }
 
+
+
+/* Imagen más pequeña */
+.trackItem img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Contenedor de texto */
 .info {
   display: flex;
   flex-direction: column;
+  flex: 1; /* ocupa el espacio entre imagen y corazón */
 }
 
+/* Nombre canción */
 .titulo {
-  font-size: 16px;
+  margin: 0;
   font-weight: bold;
+  font-size: 15px;
+}
+
+/* Artista */
+.artista {
+  margin: 0;
+  font-size: 13px;
+  color: #b3b3b3;
+}
+
+/* Corazón a la derecha */
+.favButton {
+  background: none;
+  border: none;
+  font-size: 22px;
+  margin-left: auto;    /* empuja hacia el borde derecho */
   color: white;
 }
 
-.artista {
-  font-size: 14px;
-  color: lightgray;
+/*corazon crece cuando lo pincho*/
+.favButton:hover {
+  transform: scale(1.2);
+  color: #1DB954;
 }
 
+/* Texto centrado verticalmente */
+.info {
+  justify-content: center;
+}
+
+/* Botón eliminar a la derecha */
+.botoneliminar {
+  background-color: transparent;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  justify-self: end; /* lo mando al borde derecho */
+}
+
+.botoneliminar:hover {
+  background-color: #ff4d4d;
+  color: white;
+}

@@ -135,6 +135,7 @@ export default function DashboardPage() {
   SetPlaylist(listaFinal);
 };
 
+ //<button className={styles.agregarcan} onClick={() => agregarcancion(track)}>AÑADIR CANCION</button>
 
   return (
     <div>
@@ -145,8 +146,9 @@ export default function DashboardPage() {
       <button onClick={generacionPlaylist} className="botonGenerar">
         Generar Playlist
       </button>
-
-      <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist}/>
+      
+      <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist} SetPlaylist={SetPlaylist}/>
+      
     </div>
   );
 }

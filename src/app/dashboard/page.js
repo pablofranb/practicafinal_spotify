@@ -20,16 +20,11 @@ export default function DashboardPage() {
   const [favoritosplaylist,Setfavoritosplaylist]=useState([])
   const[decadasfav,Setdecadasfav]=useState([])//inicio vacio
   const [popularityRange, setPopularityRange] = useState([0, 100]);
+  const [loadingPlaylist, setLoadingPlaylist] = useState(false);//mientras carga
   //parte de añadir
   const [mostrarTrackWidget, setMostrarTrackWidget] = useState(false); //con este controlo si muestro el widget de buscar cancion
   
-  //parte de generar
-  const preferences = {
-  artists: artistasfav,
-  genres: generosfav,
-  decades: [],         // si no usas décadas, se deja vacío
-  popularity: null     // si no usas popularidad, va null
-};
+  
 
   
   useEffect(() => {
@@ -71,21 +66,9 @@ export default function DashboardPage() {
   if (!accessToken) return <p>Cargando Spotify...</p>;
 
  //GENERACION DE MI PLAYLIST
-
- const mezclarCanciones = (arr) => {
-  let copia = [...arr];
-
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copia[i], copia[j]] = [copia[j], copia[i]]; // intercambio correcto
-  }
-
-  return copia;
-};
-
-
   const generacionPlaylist = async () => {
   try {
+    setLoadingPlaylist(true);
     const preferences = {
       artists: artistasfav,
       genres: generosfav,
@@ -96,11 +79,13 @@ export default function DashboardPage() {
     // Llamamos a la función de lib/spotify.js
     let lista = await generatePlaylist(preferences);
 
-    // Mezclo
+    // Mezclamos como tú quieres
     lista = mezclarCanciones(lista).slice(0, 30);
+     
 
+    // Guardamos en estado
     SetPlaylist(lista);
-
+    setLoadingPlaylist(false);
   } catch (err) {
     console.error("Error generando playlist:", err);
   }
@@ -129,15 +114,18 @@ const añadirCancionAPlaylist = (track) => {
       <div className="artistGenreRow">
       <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
       <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
-       
+       <div className="comboBox">
       <DecadeWidget token={accessToken} decadasfav={decadasfav} Setdecadasfav={Setdecadasfav} />
-     
-      
+      <PopularityWidget popularityRange={popularityRange}setPopularityRange={setPopularityRange}/>
+      </div>
       </div>
       <div className="generateWrapper">
       <button onClick={generacionPlaylist} className="botonGenerar">
         Generar Playlist
       </button>
+      {loadingPlaylist && (
+        <p className="cargando"> Generando playlist...</p>
+      )}
       </div>
       <PlaylistDisplay playlist={playlist}  favoritosplaylist={favoritosplaylist} Setfavoritosplaylist={Setfavoritosplaylist} SetPlaylist={SetPlaylist} abrirTrackWidget={abrirTrackWidget} />
       {mostrarTrackWidget && (

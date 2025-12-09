@@ -9,7 +9,8 @@ const Header = () => {
   return (
     <nav className={styles.header}>
       <div className={styles.logo}>
-        <p>SPOTYFY</p>
+        <img src="/logo.png" className={styles.logoImg} />
+
       </div>
 
       <ul className={styles.menu}>

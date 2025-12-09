@@ -42,3 +42,8 @@ body {
   margin: 0;
   padding-top: 60px; 
 }
+.logoImg {
+  height: 40px;
+  width: auto;
+  cursor: pointer;
+}

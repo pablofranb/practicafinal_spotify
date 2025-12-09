@@ -75,3 +75,48 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(29, 185, 84, 0.7);
 }
+/* CONTENEDOR DE AMBOS WIDGETS (décadas + popularidad) */
+.comboBox {
+  flex: 1;
+  max-width: 48%;
+  background: #000000dd;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #1DB95444;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;      /* separación entre los dos cubos */
+}
+
+/* Hace que Décadas y Popularidad se vean como cubos internos */
+.comboBox > div {
+  background: #000;
+  border: 1px solid #1DB95444;
+  border-radius: 12px;
+  padding: 20px;
+}
+.cargando{
+  color: "#1DB954";
+  
+}
+/* MOBILE RESPONSIVE  */
+@media (max-width: 900px) {
+  .artistGenreRow {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .artistGenreRow > * {
+    max-width: 100% !important;
+    width: 100%;
+  }
+
+  /* Combobox (Décadas + Popularidad) ajustado */
+  .comboBox {
+    width: 100% !important;
+  }
+}

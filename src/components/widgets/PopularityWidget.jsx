@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from "react";
-import styles from "./PopularityWidget.module.css";
 
 const PopularityWidget = ({ popularityRange, setPopularityRange }) => {
 
@@ -22,21 +21,27 @@ const PopularityWidget = ({ popularityRange, setPopularityRange }) => {
   };
 
   return (
-    <div className={styles.popularidad}>
+    <div className="flex flex-col w-full">
       <button
-        className={styles.botonpopularidad}
+        className="bg-[#1DB954] border-none px-[18px] py-[10px] rounded-[8px] text-black font-bold cursor-pointer mb-[12px]"
         onClick={() => setMostrar(!mostrar)}
       >
         {mostrar ? "Ocultar popularidad" : "Mostrar popularidad"}
       </button>
 
       {mostrar && (
-        <ul className={styles.lista}>
+        <ul className="flex flex-col gap-[12px] list-none pl-0">
           {OPTIONS.map(opt => (
-            <li className={styles.item} key={opt.label}>
+            <li
+              className="flex items-center justify-between bg-[#111] text-[#1DB954] px-[12px] py-[8px] rounded-[8px] border border-[#1DB95444]"
+              key={opt.label}
+            >
               {opt.label}
 
-              <button onClick={() => elegiropcion(opt.min, opt.max)}>
+              <button
+                onClick={() => elegiropcion(opt.min, opt.max)}
+                className="bg-transparent cursor-pointer text-[20px]"
+              >
                 {estactivada(opt.min, opt.max) ? "❤️" : "🤍"}
               </button>
             </li>
@@ -48,3 +53,4 @@ const PopularityWidget = ({ popularityRange, setPopularityRange }) => {
 };
 
 export default PopularityWidget;
+

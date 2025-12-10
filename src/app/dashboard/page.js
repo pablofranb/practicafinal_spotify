@@ -76,13 +76,13 @@ export default function DashboardPage() {
         popularity: popularityRange,
       };
 
-      // Llamamos a la función de lib/spotify.js
+      // llamada a la función de lib/spotify.js
       let lista = await generatePlaylist(preferences);
 
-      // Mezclamos como tú quieres
+      // Mezclo
       lista = mezclarCanciones(lista).slice(0, 30);
 
-      // Guardamos en estado
+      // guardo en estado
       SetPlaylist(lista);
       setLoadingPlaylist(false);
     } catch (err) {

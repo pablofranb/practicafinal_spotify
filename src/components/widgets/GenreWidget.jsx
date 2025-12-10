@@ -34,7 +34,7 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
         e.preventDefault();
 
         const resp = await fetch(
-            `https://api.spotify.com/v1/search?type=artist&q=genre:${busqueda}&limit=10`,
+            `https://api.spotify.com/v1/search?type=artist&q=genre:${busqueda}&limit=5`,
             { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -123,6 +123,8 @@ const GenreWidget=({ token, generosfav,Setgenerosfav})=>{
         </div>
 
         </div>
+        
+
     )
 }
 export default GenreWidget;

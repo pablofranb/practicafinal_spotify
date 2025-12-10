@@ -56,7 +56,7 @@ const ArtistWidget = ({token, artistasfav,Setartistasfav})=>{
         //los guardo en artistas
         Setartistas(datos.artists.items || []);
         
-        //si la dimension de artistas es 0
+        //si la dimension de artistas es 
         }
         if (artistas.length === 0) {
              aux = <p>No hay resultados</p>;

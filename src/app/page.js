@@ -21,9 +21,9 @@ export default function Home() {
   };
 
   return (
-      <>
-        🎵 Spotify Taste Mixer
-        <button className="BOTONLOGIN" onClick={handleLogin}>INICIAR SESION </button>
+      <>  
+         <h1 className="text-xl font-semibold text-white">🎵 Spotify Taste Mixer</h1>
+        <button className="bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 transition" onClick={handleLogin}>INICIAR SESION </button>
       </>  
   );
 }

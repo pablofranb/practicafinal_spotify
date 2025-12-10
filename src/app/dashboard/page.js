@@ -119,29 +119,24 @@ export default function DashboardPage() {
           
           {/* PANEL ARTISTAS */}
           <div className="
-            flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
-            border border-[#1DB95444] box-border
-            max-[900px]:max-w-full
-          ">
+              flex-1 w-[48%] max-[900px]:w-full p-[25px] rounded-[15px] bg-[#000000dd]
+              border border-[#1DB95444] box-border ">
+
             <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
           </div>
 
           {/* PANEL GÉNEROS */}
           <div className="
-            flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
-            border border-[#1DB95444] box-border
-            max-[900px]:max-w-full
-          ">
-            <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
+            flex-1 w-[48%] max-[900px]:w-full p-[25px] rounded-[15px] bg-[#000000dd]
+            border border-[#1DB95444] box-border ">
+              <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
           </div>
 
           {/* PANEL DÉCADAS + POPULARIDAD */}
           <div className="
-            flex-1 max-w-[48%] bg-[#000000dd] p-[25px] rounded-[15px]
-            border border-[#1DB95444] box-border 
-            flex flex-col gap-[30px]
-            max-[900px]:w-full
-          ">
+          flex-1 w-[48%] max-[900px]:w-full bg-[#000000dd] p-[25px] rounded-[15px]
+          border border-[#1DB95444] box-border flex flex-col gap-[30px]">
+
             <div className="bg-black border border-[#1DB95444] rounded-[12px] p-[20px]">
               <DecadeWidget token={accessToken} decadasfav={decadasfav} Setdecadasfav={Setdecadasfav} />
             </div>

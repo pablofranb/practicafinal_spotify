@@ -105,91 +105,162 @@ export default function DashboardPage() {
     setMostrarTrackWidget(false);
   };
 
-  return (
-    <div>
-      <Header />
+  const Elegirpagina = () => {
 
-      {/* artistGenreRow */}
-      <div className="
-        flex justify-center items-stretch gap-[50px] w-full 
-        my-[40px] px-[40px]
-        max-[900px]:flex-col max-[900px]:items-center max-[900px]:gap-[30px] max-[900px]:px-[20px]
-      ">
-        
-        {/* Cada panel OCUPA 50% SIN SUPERPONERSE */}
+  if (elegirpag === "home") {
+    return (
+      <>
+        {/* artistGenreRow */}
         <div className="
-          flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
-          border border-[#1DB95444] box-border
-          max-[900px]:max-w-full
+          flex justify-center items-stretch gap-[50px] w-full 
+          my-[40px] px-[40px]
+          max-[900px]:flex-col max-[900px]:items-center max-[900px]:gap-[30px] max-[900px]:px-[20px]
         ">
-          <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
-        </div>
-
-        <div className="
-          flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
-          border border-[#1DB95444] box-border
-          max-[900px]:max-w-full
-        ">
-          <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
-        </div>
-
-        {/* CONTENEDOR DE AMBOS WIDGETS (décadas + popularidad) */}
-        <div className="
-          flex-1 max-w-[48%] bg-[#000000dd] p-[25px] rounded-[15px]
-          border border-[#1DB95444] box-border 
-          flex flex-col gap-[30px]
-          max-[900px]:w-full
-        ">
-          {/* Hace que Décadas y Popularidad se vean como cubos internos */}
-          <div className="bg-black border border-[#1DB95444] rounded-[12px] p-[20px]">
-            <DecadeWidget token={accessToken} decadasfav={decadasfav} Setdecadasfav={Setdecadasfav} />
+          
+          {/* PANEL ARTISTAS */}
+          <div className="
+            flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
+            border border-[#1DB95444] box-border
+            max-[900px]:max-w-full
+          ">
+            <ArtistWidget token={accessToken} artistasfav={artistasfav} Setartistasfav={Setartistasfav} />
           </div>
 
-          <div className="bg-black border border-[#1DB95444] rounded-[12px] p-[20px]">
-            <PopularityWidget popularityRange={popularityRange} setPopularityRange={setPopularityRange} />
+          {/* PANEL GÉNEROS */}
+          <div className="
+            flex-1 max-w-[48%] p-[25px] rounded-[15px] bg-[#000000dd] 
+            border border-[#1DB95444] box-border
+            max-[900px]:max-w-full
+          ">
+            <GenreWidget token={accessToken} generosfav={generosfav} Setgenerosfav={Setgenerosfav} />
+          </div>
+
+          {/* PANEL DÉCADAS + POPULARIDAD */}
+          <div className="
+            flex-1 max-w-[48%] bg-[#000000dd] p-[25px] rounded-[15px]
+            border border-[#1DB95444] box-border 
+            flex flex-col gap-[30px]
+            max-[900px]:w-full
+          ">
+            <div className="bg-black border border-[#1DB95444] rounded-[12px] p-[20px]">
+              <DecadeWidget token={accessToken} decadasfav={decadasfav} Setdecadasfav={Setdecadasfav} />
+            </div>
+
+            <div className="bg-black border border-[#1DB95444] rounded-[12px] p-[20px]">
+              <PopularityWidget popularityRange={popularityRange} setPopularityRange={setPopularityRange} />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* CONTENEDOR PARA CENTRAR EL BOTÓN */}
-      <div className="w-full flex justify-center my-[40px] mb-[20px]">
-        
-        {/* BOTÓN TIPO SPOTIFY */}
-        <button
-          onClick={generacionPlaylist}
-          className="
-            bg-[#1DB954] text-black px-[32px] py-[14px] rounded-[30px] 
-            text-[18px] font-bold cursor-pointer transition 
-            shadow-[0_0_15px_rgba(29,185,84,0.4)]
-            hover:bg-[#1ed760] hover:scale-[1.05] hover:shadow-[0_0_20px_rgba(29,185,84,0.7)]
-          "
-        >
-          Generar Playlist
-        </button>
+        {/* BOTÓN GENERAR */}
+        <div className="w-full flex justify-center my-[40px] mb-[20px]">
+          <button
+            onClick={generacionPlaylist}
+            className="bg-[#1DB954] text-black px-[32px] py-[14px] rounded-[30px] text-[18px] font-bold cursor-pointer hover:bg-[#1ed760]"
+          >
+            Generar Playlist
+          </button>
 
-        {loadingPlaylist && (
-          <p className="text-[#1DB954] ml-4"> Generando playlist...</p>
-        )}
-      </div>
+          {loadingPlaylist && <p className="text-[#1DB954] ml-4"> Generando playlist...</p>}
+        </div>
 
-      <PlaylistDisplay
-        playlist={playlist}
-        favoritosplaylist={favoritosplaylist}
-        Setfavoritosplaylist={Setfavoritosplaylist}
-        SetPlaylist={SetPlaylist}
-        abrirTrackWidget={abrirTrackWidget}
-      />
-
-      {mostrarTrackWidget && (
-        <TrackWidget
-          token={accessToken}
-          cancionesfav={cancionesfav}
-          Setcancionesfav={Setcancionesfav}
-          añadirCancionAPlaylist={añadirCancionAPlaylist}
+        {/* PLAYLIST */}
+        <PlaylistDisplay
+          playlist={playlist}
+          favoritosplaylist={favoritosplaylist}
+          Setfavoritosplaylist={Setfavoritosplaylist}
+          SetPlaylist={SetPlaylist}
+          abrirTrackWidget={abrirTrackWidget}
         />
-      )}
 
-      <HistorialWidget SetPlaylist={SetPlaylist} />
+        {/* WIDGET PARA AÑADIR CANCIÓN */}
+        {mostrarTrackWidget && (
+          <TrackWidget
+            token={accessToken}
+            cancionesfav={cancionesfav}
+            Setcancionesfav={Setcancionesfav}
+            añadirCancionAPlaylist={añadirCancionAPlaylist}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (elegirpag === "historial") {
+    return (
+      <div className="mt-10">
+        <HistorialWidget SetPlaylist={SetPlaylist} />
+      </div>
+    );
+  }
+  //parte de favoritos
+  if (elegirpag === "favoritos") {
+    return (
+      <div className="p-10 text-white">
+
+        {/* FAVORITOS: ARTISTAS */}
+        <h2 className="text-2xl font-bold mb-4">Artistas Favoritos</h2>
+        {artistasfav.length === 0 ? (
+          <p className="text-gray-400">No tienes artistas favoritos.</p>
+        ) : (
+          <div className="flex gap-6 flex-wrap">
+            {artistasfav.map(art => (
+              <div key={art.id} className="bg-[#111] p-4 rounded-lg border border-[#1DB954]">
+                <img src={art.images?.[0]?.url} className="w-32 h-32 rounded-md object-cover" />
+                <p className="mt-2 font-semibold">{art.name}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* FAVORITOS: CANCIONES */}
+        <h2 className="text-2xl font-bold mt-10 mb-4">Canciones Favoritas</h2>
+        {cancionesfav.length === 0 ? (
+          <p className="text-gray-400">No tienes canciones favoritas.</p>
+        ) : (
+          <div className="flex flex-wrap gap-6">
+            {cancionesfav.map(track => (
+              <div key={track.id} className="bg-[#111] p-4 rounded-lg border border-[#1DB954]">
+                <img src={track.album.images?.[0]?.url} className="w-32 h-32 rounded-md" />
+                <p className="mt-2 font-semibold">{track.name}</p>
+                <p className="text-sm text-gray-400">{track.artists[0].name}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* FAVORITOS: PLAYLIST */}
+        <h2 className="text-2xl font-bold mt-10 mb-4">Favoritos de la Playlist</h2>
+        {favoritosplaylist.length === 0 ? (
+          <p className="text-gray-400">No tienes canciones marcadas como favoritas.</p>
+        ) : (
+          <div className="flex flex-wrap gap-6">
+            {favoritosplaylist.map(track => (
+              <div key={track.id} className="bg-[#111] p-4 rounded-lg border border-[#1DB954]">
+                <img src={track.album.images?.[0]?.url} className="w-32 h-32 rounded-md" />
+                <p className="mt-2 font-semibold">{track.name}</p>
+                <p className="text-sm text-gray-400">{track.artists[0].name}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+      </div>
+    );
+  }
+
+  return null;
+};
+
+
+  return (
+  <div>
+    
+    <Header elegirpag={elegirpag} Setelegirpag={Setelegirpag} />
+    <div className="pt-[80px]">
+    {Elegirpagina()}
     </div>
-  );
+  </div>
+);
+
 }
